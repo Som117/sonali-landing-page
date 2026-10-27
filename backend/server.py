@@ -43,9 +43,14 @@ class EnquiryIn(BaseModel):
 
 def _rate_limited(ip: str) -> bool:
     now = time.time()
+    for k in [k for k, v in _recent.items() if not v or now - v[-1] > 600]:
+        _recent.pop(k, None)
     hits = [t for t in _recent.get(ip, []) if now - t < 600]
+    if len(hits) >= 5:
+        _recent[ip] = hits
+        return True
     _recent[ip] = hits + [now]
-    return len(hits) >= 5
+    return False
 
 
 def _row(label: str, value: str) -> str:
@@ -86,14 +91,16 @@ async def root():
 async def create_enquiry(payload: EnquiryIn, request: Request):
     if payload.collab_type not in COLLAB_TYPES:
         raise HTTPException(status_code=422, detail="Invalid collaboration type")
-    ip = request.headers.get("x-forwarded-for", request.client.host if request.client else "x").split(",")[0]
+    xff = request.headers.get("x-forwarded-for", "")
+    ip = xff.split(",")[-1].strip() if xff else (request.client.host if request.client else "x")
     if _rate_limited(ip):
         raise HTTPException(status_code=429, detail="Too many enquiries, please try again later")
-    doc = payload.model_dump()
-    doc["created_at"] = datetime.now(timezone.utc).isoformat()
-    await db.enquiries.insert_one(doc)
     subject = f"New collaboration enquiry from {payload.company}"[:150]
     email_id = await send_email(to=OWNER_EMAIL, subject=subject, html=_enquiry_html(payload))
+    doc = payload.model_dump()
+    doc["created_at"] = datetime.now(timezone.utc).isoformat()
+    doc["email_id"] = email_id
+    await db.enquiries.insert_one(doc)
     return {"status": "sent", "email_id": email_id}
 
 

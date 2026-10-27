@@ -6,7 +6,7 @@ import { Reveal } from "./Reveal";
 const ITEMS = [
   { tag: "Lifestyle · Reel", img: "/img/floral.jpeg", reel: true },
   { tag: "Beauty · Reel", reel: true, offset: true },
-  { tag: "Portrait · Campaign", img: "/img/hero.jpg" },
+  { tag: "Portrait · Campaign" },
   { tag: "Fashion · Reel", reel: true, offset: true },
   { tag: "Skincare · UGC" },
   { tag: "F&B · Reel", reel: true, offset: true },

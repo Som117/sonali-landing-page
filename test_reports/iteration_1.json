@@ -1,0 +1,40 @@
+{
+  "summary": "Tested the backend enquiry API (10/10 pytest pass: validation 422s plus a unit test of the rate limiter) and the frontend at 1920px and 390px. All 8 sections render in order. Nav links, the hero View-work button and the mobile menu all work. Exactly ONE real enquiry was submitted through the mobile form (name 'QA Test', brand 'QA Test Brand'): API returned 200 with email_id 01a17e9a-aa4d-7151-b5d9-3ca24fab325e, enquiry-success appeared, and Send another reset the form. One real responsive bug: on 390px the About section content is wider than the screen (434px vs 390px), so the about copy and polaroid are cut off on the right.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/enquiries", "issue": "The rate-limit IP is read from the first X-Forwarded-For value, which the client controls. Anyone can bypass the 5-per-10-min limit by sending a fake XFF header, which allows spamming the creator's real inbox. Use the last proxy-appended hop or request.client.host behind a trusted proxy."},
+      {"endpoint": "POST /api/enquiries", "issue": "The rate limit is only checked after Pydantic validation, so a live 429 can only be triggered with 5 valid requests (5 real emails). It was verified with a unit test of _rate_limited instead (5 allowed, 6th blocked). The limiter also keeps recording hits after blocking, so the window keeps extending. The _recent dict is in-memory and never pruned (it grows without limit and resets on restart)."},
+      {"endpoint": "POST /api/enquiries", "issue": "The DB insert happens before the email is sent. If sending fails (502/503) the user sees an error and may resubmit, which creates duplicate DB records."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "About section (mobile 390px)", "issue": "Content overflows: grid items are 434px wide in a 390px viewport. About copy text and the polaroid are cut off on the right. Likely cause: the grid has no explicit column below lg, so its implicit auto track grows to the min-content width of the non-wrapping tags row (letter-spaced labels with divide-x). Suggested fix: add 'grid-cols-1' (or min-w-0 on the children) to the grid at About.jsx line 35, and 'flex-wrap' on the tags row at line 50.", "selector": "[data-testid='about-section'], [data-testid='about-copy']", "priority": "HIGH"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Hire Me contact info", "issues": ["A placeholder/fake phone number '+91 98765 43210' is shown publicly. Replace it with the real number or remove it."]},
+      {"screen": "Nav/Footer", "issues": ["The logo text reads 'SONALI' and the polaroid note says 'I'm Sonali', but everywhere else (headline, footer ©) uses 'Sonalii'. Confirm the spelling is intentional."]},
+      {"screen": "Work grid", "issues": ["The 'Portrait · Campaign' tile reuses the hero oval photo and is shorter than the other tiles, so the grid looks uneven. The remaining tiles are 'coming soon' placeholders (expected)."]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/test_enquiries.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "Fix the mobile overflow in the About section (About.jsx: add grid-cols-1 / min-w-0, and flex-wrap on the tags row)",
+    "Harden the rate-limit IP source (don't trust the first X-Forwarded-For value) and prune the _recent dict",
+    "Replace or remove the placeholder phone number +91 98765 43210 in Hire Me",
+    "Confirm SONALI vs Sonalii branding"
+  ],
+  "critical_code_review_comments": [
+    "server.py: _rate_limited trusts the client-supplied X-Forwarded-For[0], so the limit can be bypassed",
+    "server.py: the enquiry is saved before the email is sent; if sending fails, a retry creates duplicates (consider a status field)",
+    "server.py: @app.on_event is deprecated (use lifespan); minor"
+  ],
+  "updated_files": ["/app/backend/tests/test_enquiries.py"],
+  "success_rate": {"backend": "100%", "frontend": "90%"},
+  "seed_data_creation": "One real enquiry was submitted through the UI (name 'QA Test', company 'QA Test Brand', email qa.test@example.com). An email was sent to Work.Whyynotsonali@gmail.com and a record was saved in db.enquiries.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Do NOT send more valid enquiries; one has already been sent. Backend validation tests in tests/test_enquiries.py send no emails. Desktop: no overflow, and nav anchors land at section top = 72px (nav height). Mobile: the menu works; the About section overflows (434px > 390px)."
+}
