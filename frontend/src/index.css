@@ -7,15 +7,15 @@
 :root {
     --blush: #f6e3e1;
     --blush-deep: #efd3d1;
-    --rose: #e3b5b3;
-    --dusty: #c99393;
+    --rose: #f2c1cb;
+    --dusty: #d9849a;
     --red: #be1e2d;
     --wine: #6b1626;
     --choc: #6e0f1f;
     --cocoa: #9a4656;
     --deep: #6e0f1f;
     --ballet: #f5d7dd;
-    --dusty-rose: #d9a7a9;
+    --dusty-rose: #f0b6c3;
     --pearl: #fcf1ef;
     --quartz: #ebd0d8;
     --strawberry: #f6b9b6;
@@ -66,5 +66,5 @@ body {
 .field::placeholder { color: var(--dusty); }
 
 .placeholder-tile {
-    background: repeating-linear-gradient(135deg, var(--dusty-rose) 0 14px, #cc9699 14px 15px);
+    background: repeating-linear-gradient(135deg, var(--dusty-rose) 0 14px, #e8a2b3 14px 15px);
 }

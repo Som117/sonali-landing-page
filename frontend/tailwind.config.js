@@ -15,7 +15,7 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)'
       },
       colors: {
-        's-choc': '#6e0f1f', 's-dusty': '#c99393', 's-pearl': '#fcf1ef', 's-rose': '#e3b5b3',
+        's-choc': '#6e0f1f', 's-dusty': '#d9849a', 's-pearl': '#fcf1ef', 's-rose': '#f2c1cb',
         's-strawberry': '#f6b9b6', 's-wine': '#6b1626',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
