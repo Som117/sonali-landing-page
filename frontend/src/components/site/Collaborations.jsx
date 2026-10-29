@@ -23,7 +23,7 @@ const Brand = ({ name, i }) => (
 );
 
 const Stat = ({ n, label }) => (
-  <div className="border-t border-[var(--blush)]/30 pt-5">
+  <div className="border-t border-s-pearl/30 pt-5">
     <p className="font-serif-d text-6xl lg:text-7xl leading-none">{n}</p>
     <p className="label mt-3 text-[var(--rose)]">{label}</p>
   </div>
@@ -32,13 +32,13 @@ const Stat = ({ n, label }) => (
 export default function Collaborations() {
   return (
     <section id="collaborations" data-testid="collaborations-section" className="grid lg:grid-cols-[minmax(340px,0.42fr)_1fr]">
-      <div className="bg-[var(--red)] text-[var(--blush)] px-6 md:px-14 py-20 lg:py-32 flex flex-col justify-between gap-16">
+      <div className="bg-[var(--red)] text-[var(--pearl)] px-6 md:px-14 py-20 lg:py-32 flex flex-col justify-between gap-16">
         <Reveal>
           <p className="label text-[var(--rose)] mb-8">Collaborations</p>
           <h2 className="font-serif-d text-5xl sm:text-6xl lg:text-7xl leading-[0.95]">
             Brands I've <em className="text-[var(--rose)]">created</em> with.
           </h2>
-          <p className="mt-8 max-w-xs text-[var(--blush)]/85 leading-relaxed">
+          <p className="mt-8 max-w-xs text-s-pearl/85 leading-relaxed">
             Campaigns, product launches and UGC for names you know, and the local favourites you love.
           </p>
         </Reveal>
@@ -48,11 +48,11 @@ export default function Collaborations() {
         </Reveal>
       </div>
 
-      <div className="bg-[var(--blush)] px-6 md:px-14 lg:px-20 py-20 lg:py-32 flex flex-col justify-center">
+      <div className="bg-[var(--pearl)] px-6 md:px-14 lg:px-20 py-20 lg:py-32 flex flex-col justify-center">
         <div className="flex flex-wrap items-center gap-y-3 sm:gap-y-5" data-testid="brands-list">
           {BRANDS.map((b, i) => <Brand key={b} name={b} i={i} />)}
         </div>
-        <Reveal className="mt-16 pt-6 border-t border-[var(--dusty)]/50 label leading-[2.2] text-[var(--cocoa)]">
+        <Reveal className="mt-16 pt-6 border-t border-s-dusty/50 label leading-[2.2] text-[var(--cocoa)]">
           Fashion · Beauty · Lifestyle · Food & Beverage · Tech · Retail
         </Reveal>
       </div>

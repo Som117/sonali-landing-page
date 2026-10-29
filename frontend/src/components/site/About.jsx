@@ -13,14 +13,14 @@ const Polaroid = () => (
     className="relative bg-white p-3 pb-3 shadow-[0_18px_40px_-18px_rgba(59,34,32,0.45)] w-[82%] lg:w-[92%] max-w-[440px] mx-auto"
     data-testid="about-polaroid"
   >
-    <span className="absolute -top-4 left-[12%] w-32 h-8 bg-[var(--rose)]/80 -rotate-2" />
+    <span className="absolute -top-4 left-[12%] w-32 h-8 bg-s-pearl/90 -rotate-2" />
     <img src="/img/floral.jpeg" alt="Sonalii smiling" className="w-full aspect-[3/4] object-cover object-top" />
     <motion.div
       initial={{ clipPath: "inset(0 100% 0 0)" }}
       whileInView={{ clipPath: "inset(0 0% 0 0)" }}
       viewport={{ once: true }}
       transition={{ delay: 0.9, duration: 1.6, ease: "easeInOut" }}
-      className="absolute -left-4 sm:-left-28 -bottom-2 -rotate-[14deg] font-hand text-[var(--choc)] text-xl leading-tight flex items-end gap-2 bg-[var(--blush)]/70 px-2 py-1"
+      className="absolute -left-4 sm:-left-28 -bottom-2 -rotate-[14deg] font-hand text-[var(--choc)] text-xl leading-tight flex items-end gap-2 bg-s-pearl/85 px-2 py-1"
       data-testid="about-handwritten-note"
     >
       <span>Hi,<br />I'm Sonali</span>
@@ -31,25 +31,25 @@ const Polaroid = () => (
 
 export default function About() {
   return (
-    <section id="about" data-testid="about-section" className="bg-[var(--blush)] py-28 md:py-40">
+    <section id="about" data-testid="about-section" className="bg-[var(--dusty-rose)] py-28 md:py-40">
       <div className="max-w-[1400px] mx-auto px-6 md:px-14 grid grid-cols-1 lg:grid-cols-[1fr_1fr_1.15fr] gap-16 items-center">
         <Reveal>
-          <p className="label mb-10">About me</p>
+          <p className="label mb-10 text-[var(--wine)]">About me</p>
           <h2 className="font-serif-d text-6xl sm:text-7xl lg:text-[5.4rem] leading-[0.95] tracking-[-0.02em] text-[var(--deep)]" data-testid="about-headline">
             Just a girl who loves <em>creating.</em>
           </h2>
-          <p className="label mt-12 text-[var(--cocoa)]" data-testid="about-meta">UGC Creator &nbsp; / &nbsp; Pune, India</p>
+          <p className="label mt-12 text-[var(--wine)]" data-testid="about-meta">UGC Creator &nbsp; / &nbsp; Pune, India</p>
         </Reveal>
         <Polaroid />
-        <Reveal delay={0.2} className="lg:border-l border-[var(--dusty)]/60 lg:pl-14">
+        <Reveal delay={0.2} className="lg:border-l border-s-wine/30 lg:pl-14">
           <div className="space-y-7 text-[17px] leading-[1.9] tracking-[0.02em] text-[var(--choc)]" data-testid="about-copy">
             <p>I'm a UGC creator and digital marketing professional based in Pune, India. For 2+ years I've been making authentic, relatable short-form content that feels natural — because real moments create real connections.</p>
             <p>From fashion and beauty to lifestyle and everyday brands, I love bringing products to life in a way that feels genuine, creative and true to me — while still hitting the brand's goals.</p>
           </div>
-          <Heart className="w-6 h-6 mt-10 text-[var(--dusty)]" />
-          <div className="mt-6 grid grid-cols-3 max-w-md divide-x divide-[var(--dusty)]/60">
+          <Heart className="w-6 h-6 mt-10 text-[var(--wine)]" />
+          <div className="mt-6 grid grid-cols-3 max-w-md divide-x divide-s-wine/30">
             {TAGS.map(([a, b]) => (
-              <p key={a} className="label text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.28em] leading-[1.9] px-3 sm:px-5 first:pl-0" data-testid={`about-tag-${a.toLowerCase()}`}>{a}<br />{b}</p>
+              <p key={a} className="label text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.28em] leading-[1.9] px-3 sm:px-5 first:pl-0 text-[var(--wine)]" data-testid={`about-tag-${a.toLowerCase()}`}>{a}<br />{b}</p>
             ))}
           </div>
         </Reveal>

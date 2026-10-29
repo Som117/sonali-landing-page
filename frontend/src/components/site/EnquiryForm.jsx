@@ -39,7 +39,7 @@ export default function EnquiryForm() {
 
   if (sent) {
     return (
-      <div className="bg-[var(--blush)] p-12 md:p-16 text-center" data-testid="enquiry-success">
+      <div className="bg-[var(--ballet)] p-12 md:p-16 text-center" data-testid="enquiry-success">
         <Heart className="w-10 h-10 mx-auto text-[var(--red)]" />
         <h4 className="font-serif-d text-4xl mt-6 text-[var(--deep)]">Thank you <em>so much.</em></h4>
         <p className="mt-4 text-[var(--cocoa)]">Your enquiry is in Sonalii's inbox — she'll be in touch soon.</p>

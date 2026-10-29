@@ -9,11 +9,17 @@
     --blush-deep: #efd3d1;
     --rose: #e3b5b3;
     --dusty: #c99393;
-    --red: #b4373f;
-    --wine: #7a1f2b;
+    --red: #be1e2d;
+    --wine: #6b1626;
     --choc: #3b2220;
     --cocoa: #7a5a50;
     --deep: #2a1714;
+    --ballet: #f5d7dd;
+    --dusty-rose: #d9a7a9;
+    --pearl: #fcf1ef;
+    --quartz: #ebd0d8;
+    --strawberry: #f6b9b6;
+    --raspberry: #9b1b3b;
 }
 
 html { scroll-behavior: smooth; }
@@ -60,5 +66,5 @@ body {
 .field::placeholder { color: var(--dusty); }
 
 .placeholder-tile {
-    background: repeating-linear-gradient(135deg, var(--blush-deep) 0 14px, var(--rose) 14px 15px);
+    background: repeating-linear-gradient(135deg, var(--dusty-rose) 0 14px, #cc9699 14px 15px);
 }

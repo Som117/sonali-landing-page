@@ -28,7 +28,7 @@ const Tile = ({ item, i }) => (
       {item.img ? (
         <img src={item.img} alt={item.tag} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
       ) : (
-        <div className="absolute inset-0 flex items-center justify-center font-serif-d italic text-2xl text-[var(--dusty)]">coming soon</div>
+        <div className="absolute inset-0 flex items-center justify-center font-serif-d italic text-2xl text-s-wine/70">coming soon</div>
       )}
       {item.reel && (
         <span className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/70 backdrop-blur flex items-center justify-center">
@@ -36,20 +36,20 @@ const Tile = ({ item, i }) => (
         </span>
       )}
     </div>
-    <p className="label text-[10px] mt-4 text-[var(--cocoa)]">{item.tag}</p>
+    <p className="label text-[10px] mt-4 text-[var(--rose)]">{item.tag}</p>
   </motion.div>
 );
 
 export default function Work() {
   return (
-    <section id="work" data-testid="work-section" className="bg-[var(--blush)] py-28 md:py-40">
+    <section id="work" data-testid="work-section" className="bg-[var(--wine)] text-[var(--pearl)] py-28 md:py-40">
       <div className="max-w-[1400px] mx-auto px-6 md:px-14">
         <Reveal className="flex flex-col md:flex-row justify-between md:items-end gap-6 mb-20">
           <div>
-            <p className="label mb-6 text-[var(--red)]">Selected work</p>
-            <h2 className="font-serif-d text-5xl sm:text-6xl lg:text-7xl leading-none text-[var(--deep)]">Stop. Watch. <em>Remember.</em></h2>
+            <p className="label mb-6 text-[var(--rose)]">Selected work</p>
+            <h2 className="font-serif-d text-5xl sm:text-6xl lg:text-7xl leading-none text-[var(--pearl)]">Stop. Watch. <em className="text-[var(--strawberry)]">Remember.</em></h2>
           </div>
-          <a href="https://instagram.com/whyynotsonalii" target="_blank" rel="noreferrer" className="label link-underline self-start md:self-end hover:text-[var(--red)] transition-colors" data-testid="work-instagram-link">
+          <a href="https://instagram.com/whyynotsonalii" target="_blank" rel="noreferrer" className="label link-underline self-start md:self-end hover:text-[var(--strawberry)] transition-colors" data-testid="work-instagram-link">
             More on Instagram →
           </a>
         </Reveal>
