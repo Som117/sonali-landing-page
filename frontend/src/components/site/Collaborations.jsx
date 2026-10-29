@@ -3,57 +3,54 @@ import { Reveal, Heart } from "./Reveal";
 
 const BRANDS = ["NEWME", "Littlebox", "Yousta", "Plum", "Nykaa", "Lakmé", "Starbucks", "Toscano", "OPPO", "Myntra", "AJIO", "Zouk", "MINISO", "UNIQLO", "Bastian", "Stone Wood"];
 
-const Brand = ({ name, i }) => (
-  <motion.span
-    initial={{ opacity: 0, y: 18 }}
-    whileInView={{ opacity: 1, y: 0 }}
+const Cell = ({ name, i }) => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
     viewport={{ once: true, margin: "-30px" }}
-    transition={{ duration: 0.8, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
-    className="inline-flex items-center"
+    transition={{ duration: 0.7, delay: (i % 4) * 0.08 }}
+    data-testid={`brand-${name.toLowerCase().replace(/\s/g, "-")}`}
+    className="group relative aspect-[3/2] sm:aspect-[16/9] flex items-center justify-center border-r border-b border-s-pearl/15 hover:bg-[#f0b6c3] transition-colors duration-500 cursor-default"
   >
-    <span
-      data-testid={`brand-${name.toLowerCase().replace(/\s/g, "-")}`}
-      className={`group relative font-serif-d text-[2.1rem] sm:text-5xl lg:text-[3.6rem] leading-[1.25] text-[var(--choc)] hover:text-[var(--red)] transition-colors duration-300 cursor-default ${i % 3 === 1 ? "italic" : ""}`}
-    >
+    <span className="absolute top-3 left-4 label text-[9px] text-s-pearl/40 group-hover:text-[#6e0f1f] transition-colors">{String(i + 1).padStart(2, "0")}</span>
+    <Heart className="absolute top-3 right-4 w-3 h-3 text-[#6e0f1f] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+    <span className={`font-serif-d text-[1.7rem] sm:text-4xl lg:text-[2.6rem] text-[var(--pearl)] group-hover:text-[#6e0f1f] group-hover:scale-105 transition-[color,transform] duration-500 ${i % 2 ? "italic" : ""}`}>
       {name}
-      <sup className="label text-[9px] ml-1 align-super text-[var(--dusty)] group-hover:text-[var(--red)] transition-colors">{String(i + 1).padStart(2, "0")}</sup>
     </span>
-    {i < BRANDS.length - 1 && <Heart className="w-3.5 h-3.5 mx-4 sm:mx-6 text-[var(--red)] shrink-0" />}
-  </motion.span>
+  </motion.div>
 );
 
 const Stat = ({ n, label }) => (
-  <div className="border-t border-s-pearl/30 pt-5">
-    <p className="font-serif-d text-6xl lg:text-7xl leading-none">{n}</p>
-    <p className="label mt-3 text-[var(--rose)]">{label}</p>
+  <div className="text-left">
+    <p className="font-serif-d text-5xl lg:text-6xl leading-none text-[var(--pearl)]">{n}</p>
+    <p className="label text-[9px] mt-2 text-[#e88aa0]">{label}</p>
   </div>
 );
 
 export default function Collaborations() {
   return (
-    <section id="collaborations" data-testid="collaborations-section" className="grid lg:grid-cols-[minmax(340px,0.42fr)_1fr]">
-      <div className="bg-[var(--red)] text-[var(--pearl)] px-6 md:px-14 py-20 lg:py-32 flex flex-col justify-between gap-16">
-        <Reveal>
-          <p className="label text-[var(--rose)] mb-8">Collaborations</p>
-          <h2 className="font-serif-d text-5xl sm:text-6xl lg:text-7xl leading-[0.95]">
-            Brands I've <em className="text-[var(--rose)]">created</em> with.
-          </h2>
-          <p className="mt-8 max-w-xs text-s-pearl/85 leading-relaxed">
-            Campaigns, product launches and UGC for names you know, and the local favourites you love.
-          </p>
-        </Reveal>
-        <Reveal delay={0.15} className="grid grid-cols-2 gap-8" data-testid="collab-stats">
-          <Stat n="2+" label="Years creating" />
-          <Stat n="16+" label="Brands" />
-        </Reveal>
-      </div>
-
-      <div className="bg-[var(--pearl)] px-6 md:px-14 lg:px-20 py-20 lg:py-32 flex flex-col justify-center">
-        <div className="flex flex-wrap items-center gap-y-3 sm:gap-y-5" data-testid="brands-list">
-          {BRANDS.map((b, i) => <Brand key={b} name={b} i={i} />)}
+    <section id="collaborations" data-testid="collaborations-section" className="bg-[#6e0f1f] py-24 md:py-36">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-14">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-16 md:mb-20">
+          <Reveal>
+            <p className="label text-[#e88aa0] mb-8 flex items-center gap-4"><span className="w-10 h-px bg-[#e88aa0]" />Collaborations</p>
+            <h2 className="font-serif-d text-5xl sm:text-6xl lg:text-7xl leading-[0.95] text-[var(--pearl)]">
+              Brands I've <em className="text-[#e88aa0]">created</em> with.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.15} className="flex gap-12 lg:gap-16" data-testid="collab-stats">
+            <Stat n="2+" label="Years creating" />
+            <Stat n="16+" label="Brands" />
+            <Stat n="15" label="Categories" />
+          </Reveal>
         </div>
-        <Reveal className="mt-16 pt-6 border-t border-s-dusty/50 label leading-[2.2] text-[var(--cocoa)]">
-          Fashion · Beauty · Lifestyle · Food & Beverage · Tech · Retail
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-l border-s-pearl/15" data-testid="brands-list">
+          {BRANDS.map((b, i) => <Cell key={b} name={b} i={i} />)}
+        </div>
+
+        <Reveal className="mt-12 label text-[10px] leading-[2.2] text-s-pearl/70">
+          Fashion · Beauty · Lifestyle · Food & Beverage · Tech · Retail · D2C
         </Reveal>
       </div>
     </section>
