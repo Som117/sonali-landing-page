@@ -19,7 +19,6 @@
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .marquee-track { animation: none !important; }
 }
 
 body {
@@ -51,9 +50,6 @@ body {
 }
 .link-underline:hover::after { transform: scaleX(1); }
 
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.marquee-track { animation: marquee 40s linear infinite; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
 
 .field {
     width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--dusty);

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Reveal } from "./Reveal";
 
 const BRANDS = [
@@ -19,43 +20,40 @@ const BRANDS = [
   { n: "STONE WOOD", c: "font-serif-d tracking-[0.18em] text-[1.7rem]" },
 ];
 
-const Row = ({ hidden }) => (
-  <div className="flex items-center gap-20 pr-20 shrink-0" aria-hidden={hidden}>
-    {BRANDS.map((b) => (
-      <span
-        key={b.n}
-        data-testid={hidden ? undefined : `brand-${b.n.toLowerCase().replace(/\s/g, "-")}`}
-        className={`text-2xl whitespace-nowrap text-[var(--cocoa)]/60 hover:text-[var(--red)] transition-colors duration-300 cursor-default ${b.c}`}
-      >
-        {b.n}
-      </span>
-    ))}
-  </div>
+const Cell = ({ b, i }) => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.7, delay: (i % 4) * 0.08 }}
+    data-testid={`brand-${b.n.toLowerCase().replace(/\s/g, "-")}`}
+    className="group relative h-28 md:h-36 flex items-center justify-center border-r border-b border-[var(--blush)]/25 overflow-hidden cursor-default"
+  >
+    <span className="absolute inset-0 bg-[var(--blush)] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+    <span className={`relative text-xl md:text-2xl whitespace-nowrap text-[var(--blush)] group-hover:text-[var(--red)] transition-colors duration-500 ${b.c}`}>{b.n}</span>
+  </motion.div>
 );
 
 export default function Collaborations() {
   return (
-    <section id="collaborations" data-testid="collaborations-section" className="bg-[var(--blush-deep)] py-24 md:py-32">
+    <section id="collaborations" data-testid="collaborations-section" className="bg-[var(--red)] text-[var(--blush)] py-24 md:py-36">
       <div className="max-w-[1400px] mx-auto px-6 md:px-14">
         <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
-            <p className="label mb-6 text-[var(--red)]">Collaborations</p>
-            <h2 className="font-serif-d text-5xl sm:text-6xl leading-none text-[var(--deep)]">Brands I've <em>created</em> with.</h2>
+            <p className="label mb-6 text-[var(--rose)]">Collaborations</p>
+            <h2 className="font-serif-d text-5xl sm:text-6xl lg:text-7xl leading-none">Brands I've <em className="text-[var(--rose)]">created</em> with.</h2>
           </div>
-          <p className="max-w-sm text-[var(--cocoa)] leading-relaxed">Campaigns, product launches and UGC across fashion, beauty, lifestyle and F&B.</p>
+          <p className="max-w-sm text-[var(--blush)]/80 leading-relaxed">Campaigns, product launches and UGC across fashion, beauty, lifestyle and F&B.</p>
+        </Reveal>
+        <div className="grid grid-cols-2 md:grid-cols-4 border-t border-l border-[var(--blush)]/25" data-testid="brands-grid">
+          {BRANDS.map((b, i) => <Cell key={b.n} b={b} i={i} />)}
+        </div>
+        <Reveal className="mt-12 flex flex-wrap gap-x-10 gap-y-3 label text-[var(--blush)]/80" data-testid="collab-stats">
+          <span><b className="font-serif-d text-3xl normal-case tracking-normal text-white mr-2">2+</b>Years</span>
+          <span><b className="font-serif-d text-3xl normal-case tracking-normal text-white mr-2">16+</b>Brands</span>
+          <span className="self-center">Fashion · Beauty · Lifestyle · F&B · Retail</span>
         </Reveal>
       </div>
-      <div className="marquee overflow-hidden border-y border-[var(--dusty)]/50 py-10" data-testid="brands-marquee">
-        <div className="marquee-track flex w-max">
-          <Row />
-          <Row hidden />
-        </div>
-      </div>
-      <Reveal className="max-w-[1400px] mx-auto px-6 md:px-14 mt-12 flex flex-wrap gap-x-10 gap-y-3 label text-[var(--cocoa)]" data-testid="collab-stats">
-        <span><b className="font-serif-d text-3xl normal-case tracking-normal text-[var(--deep)] mr-2">2+</b>Years</span>
-        <span><b className="font-serif-d text-3xl normal-case tracking-normal text-[var(--deep)] mr-2">16+</b>Brands</span>
-        <span className="self-center">Fashion · Beauty · Lifestyle · F&B · Retail</span>
-      </Reveal>
     </section>
   );
 }

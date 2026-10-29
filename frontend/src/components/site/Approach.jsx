@@ -36,11 +36,11 @@ export default function Approach() {
         <div className="border-t border-[var(--dusty)]/60">
           {STEPS.map(([t, d], i) => <Step key={t} title={t} text={d} i={i} />)}
         </div>
-        <Reveal className="mt-24 max-w-4xl" data-testid="approach-statement">
-          <p className="font-serif-d italic text-3xl sm:text-4xl lg:text-5xl leading-tight text-[var(--wine)]">
-            “Creating content is not just about being visible — it is about creating an identity that people remember.”
+        <Reveal className="mt-24 bg-[var(--wine)] text-[var(--blush)] p-10 sm:p-16 lg:p-20" data-testid="approach-statement">
+          <p className="font-serif-d italic text-3xl sm:text-4xl lg:text-5xl leading-tight max-w-4xl">
+            “Creating content is not just about being visible — it is about creating an identity that people <span className="text-[var(--rose)]">remember.</span>”
           </p>
-          <p className="label mt-8">— Sonalii</p>
+          <p className="label mt-8 text-[var(--rose)]">— Sonalii</p>
         </Reveal>
       </div>
     </section>
