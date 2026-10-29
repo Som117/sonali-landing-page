@@ -1,57 +1,59 @@
 import { motion } from "framer-motion";
-import { Reveal } from "./Reveal";
+import { Reveal, Heart } from "./Reveal";
 
-const BRANDS = [
-  { n: "NEWME", c: "font-['Jost'] font-medium tracking-[0.2em]" },
-  { n: "littlebox", c: "font-serif-d italic text-[2.1rem]" },
-  { n: "YOUSTA", c: "font-['Jost'] font-medium tracking-[0.3em]" },
-  { n: "plum", c: "font-['Jost'] font-medium lowercase text-[2rem]" },
-  { n: "NYKAA", c: "font-serif-d tracking-[0.12em] text-[2rem]" },
-  { n: "Lakmé", c: "font-serif-d italic text-[2.1rem]" },
-  { n: "STARBUCKS", c: "font-['Jost'] font-medium tracking-[0.18em]" },
-  { n: "Toscano", c: "font-serif-d text-[2rem]" },
-  { n: "OPPO", c: "font-['Jost'] font-medium tracking-[0.25em]" },
-  { n: "Myntra", c: "font-['Jost'] font-medium text-[1.9rem]" },
-  { n: "AJIO", c: "font-serif-d tracking-[0.3em] text-[2rem]" },
-  { n: "ZOUK", c: "font-['Jost'] font-medium tracking-[0.35em]" },
-  { n: "MINISO", c: "font-['Jost'] font-medium tracking-[0.2em]" },
-  { n: "UNIQLO", c: "font-['Jost'] font-medium tracking-[0.15em]" },
-  { n: "Bastian", c: "font-serif-d italic text-[2.1rem]" },
-  { n: "STONE WOOD", c: "font-serif-d tracking-[0.18em] text-[1.7rem]" },
-];
+const BRANDS = ["NEWME", "Littlebox", "Yousta", "Plum", "Nykaa", "Lakmé", "Starbucks", "Toscano", "OPPO", "Myntra", "AJIO", "Zouk", "MINISO", "UNIQLO", "Bastian", "Stone Wood"];
 
-const Cell = ({ b, i }) => (
-  <motion.div
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.7, delay: (i % 4) * 0.08 }}
-    data-testid={`brand-${b.n.toLowerCase().replace(/\s/g, "-")}`}
-    className="group relative h-28 md:h-36 flex items-center justify-center border-r border-b border-[var(--blush)]/25 overflow-hidden cursor-default"
+const Brand = ({ name, i }) => (
+  <motion.span
+    initial={{ opacity: 0, y: 18 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-30px" }}
+    transition={{ duration: 0.8, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
+    className="inline-flex items-center"
   >
-    <span className="absolute inset-0 bg-[var(--blush)] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
-    <span className={`relative text-xl md:text-2xl whitespace-nowrap text-[var(--blush)] group-hover:text-[var(--red)] transition-colors duration-500 ${b.c}`}>{b.n}</span>
-  </motion.div>
+    <span
+      data-testid={`brand-${name.toLowerCase().replace(/\s/g, "-")}`}
+      className={`group relative font-serif-d text-[2.1rem] sm:text-5xl lg:text-[3.6rem] leading-[1.25] text-[var(--choc)] hover:text-[var(--red)] transition-colors duration-300 cursor-default ${i % 3 === 1 ? "italic" : ""}`}
+    >
+      {name}
+      <sup className="label text-[9px] ml-1 align-super text-[var(--dusty)] group-hover:text-[var(--red)] transition-colors">{String(i + 1).padStart(2, "0")}</sup>
+    </span>
+    {i < BRANDS.length - 1 && <Heart className="w-3.5 h-3.5 mx-4 sm:mx-6 text-[var(--red)] shrink-0" />}
+  </motion.span>
+);
+
+const Stat = ({ n, label }) => (
+  <div className="border-t border-[var(--blush)]/30 pt-5">
+    <p className="font-serif-d text-6xl lg:text-7xl leading-none">{n}</p>
+    <p className="label mt-3 text-[var(--rose)]">{label}</p>
+  </div>
 );
 
 export default function Collaborations() {
   return (
-    <section id="collaborations" data-testid="collaborations-section" className="bg-[var(--red)] text-[var(--blush)] py-24 md:py-36">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-14">
-        <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-          <div>
-            <p className="label mb-6 text-[var(--rose)]">Collaborations</p>
-            <h2 className="font-serif-d text-5xl sm:text-6xl lg:text-7xl leading-none">Brands I've <em className="text-[var(--rose)]">created</em> with.</h2>
-          </div>
-          <p className="max-w-sm text-[var(--blush)]/80 leading-relaxed">Campaigns, product launches and UGC across fashion, beauty, lifestyle and F&B.</p>
+    <section id="collaborations" data-testid="collaborations-section" className="grid lg:grid-cols-[minmax(340px,0.42fr)_1fr]">
+      <div className="bg-[var(--red)] text-[var(--blush)] px-6 md:px-14 py-20 lg:py-32 flex flex-col justify-between gap-16">
+        <Reveal>
+          <p className="label text-[var(--rose)] mb-8">Collaborations</p>
+          <h2 className="font-serif-d text-5xl sm:text-6xl lg:text-7xl leading-[0.95]">
+            Brands I've <em className="text-[var(--rose)]">created</em> with.
+          </h2>
+          <p className="mt-8 max-w-xs text-[var(--blush)]/85 leading-relaxed">
+            Campaigns, product launches and UGC for names you know, and the local favourites you love.
+          </p>
         </Reveal>
-        <div className="grid grid-cols-2 md:grid-cols-4 border-t border-l border-[var(--blush)]/25" data-testid="brands-grid">
-          {BRANDS.map((b, i) => <Cell key={b.n} b={b} i={i} />)}
+        <Reveal delay={0.15} className="grid grid-cols-2 gap-8" data-testid="collab-stats">
+          <Stat n="2+" label="Years creating" />
+          <Stat n="16+" label="Brands" />
+        </Reveal>
+      </div>
+
+      <div className="bg-[var(--blush)] px-6 md:px-14 lg:px-20 py-20 lg:py-32 flex flex-col justify-center">
+        <div className="flex flex-wrap items-center gap-y-3 sm:gap-y-5" data-testid="brands-list">
+          {BRANDS.map((b, i) => <Brand key={b} name={b} i={i} />)}
         </div>
-        <Reveal className="mt-12 flex flex-wrap gap-x-10 gap-y-3 label text-[var(--blush)]/80" data-testid="collab-stats">
-          <span><b className="font-serif-d text-3xl normal-case tracking-normal text-white mr-2">2+</b>Years</span>
-          <span><b className="font-serif-d text-3xl normal-case tracking-normal text-white mr-2">16+</b>Brands</span>
-          <span className="self-center">Fashion · Beauty · Lifestyle · F&B · Retail</span>
+        <Reveal className="mt-16 pt-6 border-t border-[var(--dusty)]/50 label leading-[2.2] text-[var(--cocoa)]">
+          Fashion · Beauty · Lifestyle · Food & Beverage · Tech · Retail
         </Reveal>
       </div>
     </section>
