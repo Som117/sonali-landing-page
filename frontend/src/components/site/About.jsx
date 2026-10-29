@@ -10,7 +10,7 @@ const Polaroid = () => (
     whileHover={{ rotate: 1 }}
     viewport={{ once: true }}
     transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-    className="relative bg-white p-3 pb-3 shadow-[0_18px_40px_-18px_rgba(59,34,32,0.45)] w-[82%] lg:w-[92%] max-w-[440px] mx-auto"
+    className="relative bg-white p-3 pb-3 shadow-[0_18px_40px_-18px_rgba(110,15,31,0.45)] w-[82%] lg:w-[92%] max-w-[440px] mx-auto"
     data-testid="about-polaroid"
   >
     <span className="absolute -top-4 left-[12%] w-32 h-8 bg-s-pearl/90 -rotate-2" />

@@ -23,7 +23,7 @@ const Card = ({ c, i }) => (
     whileHover={{ rotate: 0, y: -6 }}
     viewport={{ once: true, margin: "-40px" }}
     transition={{ duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-    className={`${c.bg} ${c.text} p-8 sm:p-10 ${c.big ? "lg:py-14" : ""} shadow-[0_22px_40px_-22px_rgba(59,34,32,0.45)]`}
+    className={`${c.bg} ${c.text} p-8 sm:p-10 ${c.big ? "lg:py-14" : ""} shadow-[0_22px_40px_-22px_rgba(110,15,31,0.45)]`}
     data-testid={`review-card-${i}`}
   >
     <span className={`font-['Georgia'] font-bold text-3xl leading-none ${c.mark}`}>“</span>
